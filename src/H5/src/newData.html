@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+		<style type="text/css">
+			.inputs{
+				margin-top: 60px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">新增地址</h1>
+		</header>
+		<div class="inputs">
+			<input type="text" value="" class="name" placeholder="姓名" />
+			<input type="text" value="" class="phone" placeholder="手机号码" />
+			<input type="text" value="" class="homephone" placeholder="固定电话(选填)" />
+			<input type="text" value="" class="address" placeholder="省市区" />
+			<input type="text" value="" class="moreAdd" placeholder="详细地址" />
+		</div>
+		<button type="button" class="mui-btn mui-btn-green mui-btn-block">完成</button>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var btn = document.querySelector("button");
+			btn.addEventListener("tap",function(){
+				mui.ajax('/api/newData',{
+					data:{
+						name:document.querySelector(".name").value,
+						phone:document.querySelector(".phone").value,
+						homePhone:document.querySelector(".homephone").value,
+						address:document.querySelector(".address").value,
+						moreAdd:document.querySelector(".moreAdd").value
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(data){
+					}
+				});
+				location.href="index.html";
+			})
+		</script>
+	</body>
+</html>

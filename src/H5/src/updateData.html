@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+		<style type="text/css">
+			.inputs {
+				margin-top: 60px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">修改地址</h1>
+		</header>
+		<div class="inputs">
+
+		</div>
+		<button type="button" class="mui-btn mui-btn-green mui-btn-block">完成</button>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var inputs = document.querySelector(".inputs");
+			var btn = document.querySelector("button");
+			console.log(localStorage.getItem("userid"))
+			mui.ajax('/api/findData', {
+				data: {
+					_id: localStorage.getItem("userid")
+				},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					console.log(data)
+					inputs.innerHTML =
+						`<input type="text" value="${data.data[0].name}" class="name" placeholder="姓名" />
+								<input type="text" value="${data.data[0].phone}" class="phone" placeholder="手机号码" />
+								<input type="text" value="${data.data[0].homePhone}" class="homephone" placeholder="固定电话(选填)" />
+								<input type="text" value="${data.data[0].address}" class="address" placeholder="省市区" />
+								<input type="text" value="${data.data[0].moreAdd}" class="moreAdd" placeholder="详细地址" />`
+				}
+			});
+			btn.addEventListener("tap", function() {
+				mui.ajax('/api/updateData', {
+					data: {
+						_id: localStorage.getItem("userid")
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						location.href = "index.html"
+					}
+				});
+			})
+		</script>
+	</body>
+</html>
